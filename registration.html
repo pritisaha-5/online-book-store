@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Registration Page</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2e4d2e;
+            margin: 0;
+            text-align: center;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #222;
+            padding: 15px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 15px;
+            font-size: 18px;
+        }
+
+        .navbar a:hover {
+            color: #4CAF50;
+        }
+
+        /* Form Box */
+        .container {
+            background-color: white;
+            width: 350px;
+            margin: 50px auto;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px gray;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 8px;
+            border-radius: 5px;
+            border: 1px solid gray;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: darkgreen;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="Userlogin.html">User Login</a>
+        <a href="registration.html">Register</a>
+        <a href="catalogue.html">Book Catalogue</a>
+        <a href="cart.html">Cart</a>
+        <a href="payment.html">Payment</a>
+    </div>
+
+    <!-- Registration Form -->
+    <div class="container">
+        <h2>Register 📝</h2>
+
+        <form onsubmit="return registerUser()">
+            <input type="text" id="name" placeholder="Enter Name" required><br>
+            <input type="password" id="password" placeholder="Enter Password" required><br>
+
+            <input type="submit" value="Register" class="btn">
+        </form>
+    </div>
+
+    <script>
+        function registerUser() {
+            let name = document.getElementById("name").value;
+            let password = document.getElementById("password").value;
+
+            if (password.length < 6) {
+                alert("Password must be at least 6 characters!");
+                return false;
+            }
+
+            // Save to localStorage
+            let user = {
+                name: name,
+                password: password
+            };
+
+            localStorage.setItem("user", JSON.stringify(user));
+
+            alert("Registration Successful!");
+
+            // Redirect to login page
+            window.location.href = "Userlogin.html";
+
+            return false;
+        }
+    </script>
+
+</body>
+</html>

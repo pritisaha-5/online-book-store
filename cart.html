@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Cart</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 70%;
+            background-color: white;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid gray;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        button {
+            padding: 6px 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .total {
+            font-size: 20px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <a href="Userlogin.html">Userlogin</a>
+    <a href="registration.html">registration</a>
+    <a href="catalogue.html">bookcatalogue</a>
+    <a href="cart.html">cart</a>
+    <a href="payment.html">payment</a>
+
+    <h1>🛒 Your Cart</h1>
+
+    <table>
+        <tr>
+            <th>Book Name</th>
+            <th>Price (₹)</th>
+            <th>Action</th>
+        </tr>
+        <tbody id="cartItems"></tbody>
+    </table>
+
+    <div class="total" id="totalPrice"></div>
+
+    <br>
+    <button onclick="clearCart()">Clear Cart</button>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let cartTable = document.getElementById("cartItems");
+
+        function displayCart() {
+            cartTable.innerHTML = "";
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price;
+
+                let row = `
+                    <tr>
+                        <td>${item.name}</td>
+                        <td>₹${item.price}</td>
+                        <td><button onclick="removeItem(${index})">Remove</button></td>
+                    </tr>
+                `;
+                cartTable.innerHTML += row;
+            });
+
+            document.getElementById("totalPrice").innerHTML =
+                "Total Amount: ₹" + total;
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            displayCart();
+        }
+
+        function clearCart() {
+            localStorage.removeItem("cart");
+            cart = [];
+            displayCart();
+        }
+
+        displayCart();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Catalogue Page</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 0;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        .navbar {
+            background-color: #222;
+            padding: 15px;
+        }
+
+        .navbar a {
+            color: white;
+            margin: 15px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .navbar a:hover {
+            color: #4CAF50;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 70%;
+            background-color: white;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid gray;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        button {
+            padding: 8px 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: darkgreen;
+        }
+
+        .cart-count {
+            color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="Userlogin.html">User Login</a>
+        <a href="registration.html">Register</a>
+        <a href="catalogue.html">Book Catalogue</a>
+        <a href="cart.html">Cart (<span id="count">0</span>)</a>
+        <a href="payment.html">Payment</a>
+    </div>
+
+    <h1>📚 Choose Your Favorite Books</h1>
+
+    <table>
+        <tr>
+            <th>Book Name</th>  
+            <th>Author</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+
+        <tr>
+            <td>Pride and Prejudice</td>
+            <td>Jane Austen</td>
+            <td>₹850</td>
+            <td><button onclick="addToCart('Pride and Prejudice', 850)">Add</button></td>
+        </tr>
+
+        <tr>
+            <td>The Great Gatsby</td>
+            <td>F. Scott Fitzgerald</td>
+            <td>₹645</td>
+            <td><button onclick="addToCart('The Great Gatsby', 645)">Add</button></td>
+        </tr>
+
+        <tr>
+            <td>Moby-Dick</td>
+            <td>Herman Melville</td>
+            <td>₹550</td>
+            <td><button onclick="addToCart('Moby-Dick', 550)">Add</button></td>
+        </tr>
+
+        <tr>
+            <td>War and Peace</td>
+            <td>Leo Tolstoy</td>
+            <td>₹350</td>
+            <td><button onclick="addToCart('War and Peace', 350)">Add</button></td>
+        </tr>
+    </table>
+
+    <script>
+        function addToCart(name, price) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            let exists = cart.find(item => item.name === name);
+            if (exists) {
+                alert("Item already in cart!");
+                return;
+            }
+
+            cart.push({ name: name, price: price });
+
+            localStorage.setItem("cart", JSON.stringify(cart));
+
+            updateCartCount();
+
+            alert(name + " added to cart!");
+        }
+
+        function updateCartCount() {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            document.getElementById("count").innerText = cart.length;
+        }
+
+        updateCartCount();
+    </script>
+
+</body>
+</html>

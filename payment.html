@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Payment</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            background: white;
+            width: 320px;
+            margin: 60px auto;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px gray;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+        }
+
+        input {
+            margin: 8px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background-color: darkgreen;
+        }
+
+        .navbar a {
+            margin: 10px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="Userlogin.html">Userlogin</a>
+        <a href="registration.html">registration</a>
+        <a href="catalogue.html">bookcatalogue</a>
+        <a href="cart.html">cart</a>
+        <a href="payment.html">payment</a>
+    </div>
+
+    <div class="container">
+        <h2>💳 Choose Payment Method</h2>
+
+        <input type="radio" name="payment" value="Net Banking"> Net Banking<br>
+        <input type="radio" name="payment" value="UPI"> UPI<br>
+        <input type="radio" name="payment" value="Debit Card"> Debit Card<br>
+        <input type="radio" name="payment" value="Cash on Delivery"> COD<br>
+
+        <button onclick="placeOrder()">Place Order</button>
+    </div>
+
+    <script>
+        function placeOrder() {
+            let selected = document.querySelector("input[name='payment']:checked");
+
+            if (!selected) {
+                alert("Please select a payment method!");
+                return;
+            }
+
+            // Save payment method
+            localStorage.setItem("paymentMethod", selected.value);
+
+            // Show success message
+            alert("✅ Payment Successful!\n\n🙏 Thanks for Shopping with us!");
+
+            // Clear cart
+            localStorage.removeItem("cart");
+
+            // Redirect to thank you page
+            window.location.href = "thankyou.html";
+        }
+    </script>
+
+</body>
+</html>
